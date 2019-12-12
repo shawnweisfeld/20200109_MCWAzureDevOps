@@ -34,6 +34,8 @@ In this hands-on lab, you will learn how to implement a solution with a combinat
 
 At the end of this workshop, you will be better able to implement solutions for continuous delivery with Azure DevOps in Azure, as well create an Azure Resource Manager (ARM) template to provision Azure resources, configure continuous delivery with Azure DevOps, configure Application Insights into an application, and create an Azure DevOps project and Git repository.
 
+[View the Hands-on Lab here](./lab)
+
 ## Azure services and related products
 - Azure App Service 
 - Azure PostgreSQL Database
