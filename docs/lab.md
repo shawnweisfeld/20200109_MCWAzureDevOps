@@ -3,13 +3,37 @@
 **Contents**
 
 <!-- TOC -->
-
-- [Continuous delivery in Azure DevOps before the hands-on lab setup guide](#continuous-delivery-in-azure-devops-before-the-hands-on-lab-setup-guide)
-  - [Requirements](#requirements)
-  - [Before the hands-on lab](#before-the-hands-on-lab)
-    - [Prerequisites](#prerequisites)
+- [Hands-on lab](#hands-on-lab)
+  - [Abstract and learning objectives](#abstract-and-learning-objectives)
+  - [Overview](#overview)
+  - [Solution architecture](#solution-architecture)
+  - [Setup](#setup)
     - [Task 1: Use Azure Shell as your development environment](#task-1-use-azure-shell-as-your-development-environment)
     - [Task 2: Download the exercise files](#task-2-download-the-exercise-files)
+  - [Exercise 1: Create an Azure Resource Manager (ARM) template that can provision the web application, PostgreSQL database, and deployment slots in a single automated process](#exercise-1-create-an-azure-resource-manager-arm-template-that-can-provision-the-web-application-postgresql-database-and-deployment-slots-in-a-single-automated-process)
+    - [Task 1: Create an Azure Resource Manager (ARM) template using Azure Cloud Shell](#task-1-create-an-azure-resource-manager-arm-template-using-azure-cloud-shell)
+    - [Task 2: Configure the list of release environments parameters](#task-2-configure-the-list-of-release-environments-parameters)
+    - [Task 3: Add a deployment slot for the &quot;staging&quot; version of the site](#task-3-add-a-deployment-slot-for-the-quotstagingquot-version-of-the-site)
+    - [Task 4: Create the dev environment in Azure](#task-4-create-the-dev-environment-in-azure)
+    - [Task 5: Create the test environment in Azure](#task-5-create-the-test-environment-in-azure)
+    - [Task 6: Create the production environment in Azure](#task-6-create-the-production-environment-in-azure)
+  - [Exercise 2: Create Azure DevOps project and Git Repository](#exercise-2-create-azure-devops-project-and-git-repository)
+    - [Task 1: Create Azure DevOps Account](#task-1-create-azure-devops-account)
+    - [Task 2: Add the Tailspin Toys source code repository to Azure DevOps](#task-2-add-the-tailspin-toys-source-code-repository-to-azure-devops)
+  - [Exercise 3: Create Azure DevOps build pipeline](#exercise-3-create-azure-devops-build-pipeline)
+    - [Task 1: Create a build pipeline](#task-1-create-a-build-pipeline)
+  - [Exercise 4: Create Azure DevOps release pipeline](#exercise-4-create-azure-devops-release-pipeline)
+    - [Task 1: Create a release definition](#task-1-create-a-release-definition)
+    - [Task 2: Add test and production environments to release pipeline](#task-2-add-test-and-production-environments-to-release-pipeline)
+  - [Exercise 5: Trigger a build and release](#exercise-5-trigger-a-build-and-release)
+    - [Task 1: Manually queue a new build and follow it through the release pipeline](#task-1-manually-queue-a-new-build-and-follow-it-through-the-release-pipeline)
+  - [Exercise 6: Create a feature branch and submit a pull request](#exercise-6-create-a-feature-branch-and-submit-a-pull-request)
+    - [Task 1: Create a new branch](#task-1-create-a-new-branch)
+    - [Task 2: Make a code change to the feature branch](#task-2-make-a-code-change-to-the-feature-branch)
+    - [Task 3: Submit a pull request](#task-3-submit-a-pull-request)
+    - [Task 4: Approve and complete a pull request](#task-4-approve-and-complete-a-pull-request)
+  - [After the hands-on lab](#after-the-hands-on-lab)
+    - [Task 1: Delete resources](#task-1-delete-resources)
 
 <!-- /TOC -->
 
