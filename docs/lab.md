@@ -29,11 +29,17 @@ Tailspin Toys has asked you to automate their development process in two specifi
 
 ## Setup
 
-1.  Go to the [Azure Portal](https://portal.azure.com) and log into the provided Microsoft Azure subscription
-
 ### Task 1: Use Azure Shell as your development environment
 
-1.  Launch the **Azure Cloud Shell** by going to [https://shell.azure.com](https://shell.azure.com)
+1.  Go to the **Azure Portal** [https://portal.azure.com](https://portal.azure.com) and log into the provided Microsoft Azure subscription
+
+1.  Launch the **Azure Cloud Shell** on a new tab in the same browser window by going to [https://shell.azure.com](https://shell.azure.com). 
+
+    > If prompted to select a "Directory" pick the same one as the provided Microsoft Azure subscription.
+
+    > If prompted to create a stroage account for the Cloud Shell do so in the provided Microsoft Azure subscription.
+
+    > Be sure that your Cloud Shell is configured to use Bash.
 
 2.  From inside the Azure Cloud Shell type these commands to configure Git running locally in the cloud shell. Be sure to replace with your name and email address.
 
@@ -138,7 +144,7 @@ Since this solution is based on Azure Platform-as-a-Service (PaaS) technology, i
 
 ### Task 3: Add a deployment slot for the "staging" version of the site
 
-1.  Next, you need to add the "staging" deployment slot to the web app. This is used during a deployment to stage the new version of the web app. This is going to require the addition of some manual code. In the **azuredeploy.json** file, add the following code to the "resources" array, just above the element for the "connectionstrings" (on or around line 156).
+1.  Next, you need to add the "staging" deployment slot to the web app. This is used during a deployment to stage the new version of the web app. This is going to require the addition of some additional code. In the **azuredeploy.json** file, add the following code to the "resources" array, just above the element for the "connectionstrings" (on or around line 156).
 
     ```json
     {
@@ -164,54 +170,34 @@ Since this solution is based on Azure Platform-as-a-Service (PaaS) technology, i
 
     ![This is a screenshot of the code pasted just below the element for the application insights extension in the "resources" array.](./assets/lab-images/stepbystep/media/image39.png "Pasted block of JSON code")
 
-### Task 4: Create the dev environment and deploy the template to Azure
+### Task 4: Create the dev environment in Azure
 
 Now that the template file has been uploaded, we'll deploy it several times to create each of our desired environments: "dev", "test", and "production". Let's start with the "dev" environment.
 
-1.  In the **Azure Cloud Shell** terminal, enter the following command and press **Enter**:
+1.  In the **Azure Cloud Shell** terminal, execute the following commands:
+
+    > NOTE: Name your resource group asollows AzureDevOpsLab-alias. For example mine would be named "AzureDevOpsLab-sweisfel".
 
     ```bash
-    echo "Enter the Resource Group name:" &&
-    read resourceGroupName &&
-    echo "Enter the location (i.e. westus, centralus, eastus):" &&
-    read location &&
-    az group create --name $resourceGroupName --location "$location" &&
-    az group deployment create --resource-group $resourceGroupName --template-file "$HOME/azuredeploy.json"
+    RG=<your resource group>
+    LOCATION=<the azure region you want to deploy to (i.e. centralus)>
+    az group create --name $RG --location $LOCATION
+    az group deployment create --resource-group $RG --template-file armtemplate/azuredeploy.json
     ```
-    
-    >**Note**: This command is designed to prompt us to enter the resource group name and Azure region (location) we want to deploy our resources to. The script then takes our inputs and passes them as parameters to the Azure CLI command that calls our recently uploaded template file.
 
-    ![In the Azure Cloud Shell window, the command has been entered is we are prompted for the name of the resource group we want to deploy to.](./assets/lab-images/stepbystep/media/image44.png "Azure Cloud Shell window")
-
-2.  Enter the name of a resource group you want to deploy the resources to (i.e. TailspinToysRG). If it does not already exist, the template will create it. Then, press **Enter**.
-
-3.  Next, we're prompted to enter an Azure region (location) where we want to deploy our resources to (i.e. westus, centralus, eastus). Some examples are suggested by our command.
-    
-    ![In the Azure Cloud Shell window, we are prompted for the location we want to deploy to.](./assets/lab-images/stepbystep/media/image45.png "Azure Cloud Shell window")
-
-4.  Enter the name of an Azure region and then press **Enter**.
-   
 5.  Next, we're asked to enter a choice for environments we want to deploy to. The template will use our choice to concatenate the name of the environment with the name of the resource during provisioning. 
     
-   ![In the Azure Cloud Shell window, we are prompted for the environment we want to deploy to.](./assets/lab-images/stepbystep/media/image46.png "Azure Cloud Shell")
-
 6.  For this first run, select the "dev" environment by entering **1** and then pressing **Enter**. 
 
 7.  Next, we're asked to supply an administrator login (username) for the PostgreSQL server and database. This will be the username credential you would need to enter to connect to your newly created database.
 
-   ![In the Azure Cloud Shell window, we are prompted for the administrative username for the PostgreSQL server and database we want to create.](./assets/lab-images/stepbystep/media/image47.png "Azure Cloud Shell")
+8.  Enter a value for the "administratorLogin" (i.e. use your alias) and then press **Enter**.
 
-8.  Enter a value for the "administratorLogin" and then press **Enter**.
+9.  Next, we're asked to supply an administrator password for the PostgreSQL server and database. This will be the password credential you would need to enter to connect to your newly created database. Enter a value for the "administratorLoginPassword" and then press **Enter**.
 
-9.  Next, we're asked to supply an administrator password for the PostgreSQL server and database. This will be the password credential you would need to enter to connect to your newly created database.
-
-   ![In the Azure Cloud Shell window, we are prompted for the administrative password for the PostgreSQL server and database we want to create.](./assets/lab-images/stepbystep/media/image48.png "Azure Cloud Shell")
-
-10. Enter a value for the "administratorLoginPassword" and then press **Enter**.
+    ![In the Azure Cloud Shell window, the command has been entered is we are prompted for the name of the resource group we want to deploy to.](./assets/lab-images/stepbystep/media/image44b.png "Azure Cloud Shell window")
 
     This will kick off the provisioning process which takes a few minutes to create all the resources for the environment. This is indicated by the "Running" text displayed at the bottom of the Azure Cloud Shell while the command is executing.
-
-   ![The Azure Cloud Shell is executing the template based on the parameters we provided.](./assets/lab-images/stepbystep/media/image49.png "Azure Cloud Shell")
 
 11. After the template has completed, JSON is output to the Azure Cloud Shell window with a "Succeeded" message.
 
@@ -219,87 +205,37 @@ Now that the template file has been uploaded, we'll deploy it several times to c
 
   >**Note**: The above steps were used to provision the "dev" environment. Most of these same steps will be repeated for the "test" and "production" environments below.
 
-### Task 5: Create the test environment and deploy the template to Azure
+### Task 5: Create the test environment in Azure
 
-The following steps are very similar to what was done in the previous task with the exception that you are now creating the "test" environment.
-
-1.  In the Azure Cloud Shell terminal, enter the following command and press **Enter**:
+1.  In the Azure Cloud Shell terminal, enter the same command as last time and press **Enter**:
 
     ```bash
-    echo "Enter the Resource Group name:" &&
-    read resourceGroupName &&
-    echo "Enter the location (i.e. westus, centralus, eastus):" &&
-    read location &&
-    az group create --name $resourceGroupName --location "$location" &&
-    az group deployment create --resource-group $resourceGroupName --template-file "$HOME/azuredeploy.json"
+    az group deployment create --resource-group $RG --template-file armtemplate/azuredeploy.json
     ```
     
-    ![In the Azure Cloud Shell window, the command has been entered is we are prompted for the name of the resource group we want to deploy to.](./assets/lab-images/stepbystep/media/image44.png "Azure Cloud Shell window")
-
-2.  Enter the name of a resource group from earlier that you deployed the resources to (i.e. TailspinToysRG). Then, press **Enter**.
-    
-    ![In the Azure Cloud Shell window, we are prompted for the location we want to deploy to.](./assets/lab-images/stepbystep/media/image45.png "Azure Cloud Shell window")
-
-3.  Enter the name of the Azure region from earlier and then press **Enter**.
-     
-   ![In the Azure Cloud Shell window, we are prompted for the environment we want to deploy to.](./assets/lab-images/stepbystep/media/image46.png "Azure Cloud Shell")
-
 4.  For this next run, select the "test" environment by entering **2** and then pressing **Enter**. 
 
-   ![In the Azure Cloud Shell window, we are prompted for the administrative username for the PostgreSQL server and database we want to create.](./assets/lab-images/stepbystep/media/image47.png "Azure Cloud Shell")
+5.  Enter the same value for the "administratorLogin" that you did earlier and then press **Enter**.
 
-5.  Enter the value for the "administratorLogin" and then press **Enter**.
-
-   ![In the Azure Cloud Shell window, we are prompted for the administrative password for the PostgreSQL server and database we want to create.](./assets/lab-images/stepbystep/media/image48.png "Azure Cloud Shell")
-
-6.  Enter a value for the "administratorLoginPassword" and then press **Enter**.
-
-   ![The Azure Cloud Shell is executing the template based on the parameters we provided.](./assets/lab-images/stepbystep/media/image49.png "Azure Cloud Shell")
+6.  Enter the same value for the "administratorLoginPassword" that you did earlier and then press **Enter**.
 
 7.  After the template has completed, JSON is output to the Azure Cloud Shell window with a "Succeeded" message.
 
-   ![The Azure Cloud Shell has succeeded in executing the template based on the parameters we provided.](./assets/lab-images/stepbystep/media/image50.png "Azure Cloud Shell")
+### Task 6: Create the production environment in Azure
 
-### Task 6: Create the production environment and deploy the template to Azure
-
-The following steps are very similar to what was done in the previous task with the exception that you are now creating the "production" environment.
-
-1.  In the Azure Cloud Shell terminal, enter the following command and press **Enter**:
+1.  In the Azure Cloud Shell terminal, enter the same command as last time and press **Enter**:
 
     ```bash
-    echo "Enter the Resource Group name:" &&
-    read resourceGroupName &&
-    echo "Enter the location (i.e. westus, centralus, eastus):" &&
-    read location &&
-    az group create --name $resourceGroupName --location "$location" &&
-    az group deployment create --resource-group $resourceGroupName --template-file "$HOME/azuredeploy.json"
+    az group deployment create --resource-group $RG --template-file armtemplate/azuredeploy.json
     ```
     
-    ![In the Azure Cloud Shell window, the command has been entered is we are prompted for the name of the resource group we want to deploy to.](./assets/lab-images/stepbystep/media/image44.png "Azure Cloud Shell window")
-
-2.  Enter the name of a resource group from earlier that you deployed the resources to (i.e. TailspinToysRG). Then, press **Enter**.
-    
-    ![In the Azure Cloud Shell window, we are prompted for the location we want to deploy to.](./assets/lab-images/stepbystep/media/image45.png "Azure Cloud Shell window")
-
-3.  Enter the name of the Azure region from earlier and then press **Enter**.
-     
-   ![In the Azure Cloud Shell window, we are prompted for the environment we want to deploy to.](./assets/lab-images/stepbystep/media/image46.png "Azure Cloud Shell")
-
 4.  For this next run, select the "production" environment by entering **3** and then pressing **Enter**. 
 
-   ![In the Azure Cloud Shell window, we are prompted for the administrative username for the PostgreSQL server and database we want to create.](./assets/lab-images/stepbystep/media/image47.png "Azure Cloud Shell")
+5.  Enter the same value for the "administratorLogin" that you did earlier and then press **Enter**.
 
-5.  Enter the value for the "administratorLogin" and then press **Enter**.
-
-   ![In the Azure Cloud Shell window, we are prompted for the administrative password for the PostgreSQL server and database we want to create.](./assets/lab-images/stepbystep/media/image48.png "Azure Cloud Shell")
-
-6.  Enter a value for the "administratorLoginPassword" and then press **Enter**.
-
-   ![The Azure Cloud Shell is executing the template based on the parameters we provided.](./assets/lab-images/stepbystep/media/image49.png "Azure Cloud Shell")
+6.  Enter the same value for the "administratorLoginPassword" that you did earlier and then press **Enter**.
 
 7.  After the template has completed, JSON is output to the Azure Cloud Shell window with a "Succeeded" message.
-
-   ![The Azure Cloud Shell has succeeded in executing the template based on the parameters we provided.](./assets/lab-images/stepbystep/media/image50.png "Azure Cloud Shell")
 
 8.  In the Azure Portal, navigate to the resource group where all of the resources have been deployed. It should look similar to the screenshot below.
 
