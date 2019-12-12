@@ -201,9 +201,9 @@ Now that the template file has been uploaded, we'll deploy it several times to c
 
 11. After the template has completed, JSON is output to the Azure Cloud Shell window with a "Succeeded" message.
 
-   ![The Azure Cloud Shell has succeeded in executing the template based on the parameters we provided.](./assets/lab-images/stepbystep/media/image50.png "Azure Cloud Shell")
+    ![The Azure Cloud Shell has succeeded in executing the template based on the parameters we provided.](./assets/lab-images/stepbystep/media/image50.png "Azure Cloud Shell")
 
-  >**Note**: The above steps were used to provision the "dev" environment. Most of these same steps will be repeated for the "test" and "production" environments below.
+    >**Note**: The above steps were used to provision the "dev" environment. Most of these same steps will be repeated for the "test" and "production" environments below.
 
 ### Task 5: Create the test environment in Azure
 
