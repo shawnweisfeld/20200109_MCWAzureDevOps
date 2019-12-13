@@ -70,6 +70,7 @@ Tailspin Toys has asked you to automate their development process in two specifi
     ```
     git config --global user.name "<your name>"
     git config --global user.email <your email>
+    git config --global credential.helper store
     ```
 
 ### Task 2: Download the exercise files
@@ -275,13 +276,13 @@ In this exercise, you will create and configure an Azure DevOps account along wi
 
 ### Task 1: Create Azure DevOps Account
 
-1.  Browse to the Azure DevOps site at <https://dev.azure.com>.
+1.  Using a new browser tab, open the Azure DevOps site at [https://dev.azure.com](https://dev.azure.com).
 
 2.  If you do not already have an account, select the **Start free** button.
     
     ![In this screenshot, a Start free button is shown on the Azure DevOps home page.](./assets/lab-images/stepbystep/media/image56.png "Azure DevOps screenshot")
 
-3.  Authenticate with a Microsoft account.
+3.  Be sure that you are authenticated with the SAME account that you used to log in to Azure with.
 
 4.  Choose **Continue** to accept the Terms of Service, Privacy Statement, and Code of Conduct.
 
@@ -293,9 +294,13 @@ In this exercise, you will create and configure an Azure DevOps account along wi
 
     ![In the TailspinToys project window, Repos is highlighted in the left-hand navigation.](./assets/lab-images/stepbystep/media/image58.png "TailspinToys navigation window")
 
-7.  On the **Repos** page for the **TailspinToys** repository, locate the "or push an existing repository from command line" section. Click the Copy button to copy the contents of the panel. We're going to use these commands in an upcoming step.
+7.  On the **Repos** page for the **TailspinToys** repository, locate the "or push an existing repository from command line" section. Click the Copy button to copy the contents of the panel and save them in notepad. We're going to use these commands in an upcoming step.
 
     ![In the "Add some code!" window, URLs appear to clone to your computer or push an existing repository from command line.](./assets/lab-images/stepbystep/media/image59.png "TailspinToys is empty. Add some code! window")
+
+8. Create a personal access tokens to authenticate access from the Git client in the Cloud Shell to the Git server running in Azure DevOps using the instructions [here](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page#create-personal-access-tokens-to-authenticate-access). NOTE: Give this token full & status permissions on your source code. Save the token in your notepad. 
+
+    ![PAT permissions](./assets/lab-images/stepbystep/media/image59b.png "PAT permissions")
 
 ### Task 2: Add the Tailspin Toys source code repository to Azure DevOps
 
@@ -303,7 +308,7 @@ In this Task, you will configure the Azure DevOps Git repository. You will confi
 
 1.  Open the **Azure Cloud Shell** to the folder where the Student Files were unzipped (i.e. studentfiles). Then, navigate to the **tailspintoysweb** folder which contains the source code for our web application.
 
-    > **Note**: If this folder doesn't exist ensure you followed the instructions in the Before the HOL.
+    > **Note**: If this folder doesn't exist ensure you followed the setup instructions.
 
 2. Open Code to this folder by typing: 
    
@@ -420,6 +425,10 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
     >**Note**: The YAML below creates individual tasks for performing all the necessary steps to build and test our application along with publishing the artifacts inside Azure DevOps so they can be retrieved during the upcoming release pipeline process.
 
     ```yaml
+    - task: UseNode@1
+      inputs:
+        checkLatest: true
+
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
       inputs:
@@ -451,45 +460,60 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
 11. The final result will look like the following:
 
     ```yml
+    # ASP.NET Core
+    # Build and test ASP.NET Core projects targeting .NET Core.
+    # Add steps that run tests, create a NuGet package, deploy, and more:
+    # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+    trigger:
+    - master
+
     pool:
-      name: Hosted VS2017
-      demands:
-      - msbuild
-      - visualstudio
-      - vstest
+    name: Hosted VS2017
+    demands:
+    - msbuild
+    - visualstudio
+    - vstest
+
+    variables:
+    buildConfiguration: 'Release'
 
     steps:
     - task: NuGetToolInstaller@0
-      displayName: 'Use NuGet 4.4.1'
-      inputs:
-        versionSpec: 4.4.1
+    displayName: 'Use NuGet 4.4.1'
+    inputs:
+      versionSpec: 4.4.1
+
+    - task: UseNode@1
+    inputs:
+      checkLatest: true
 
     - task: NuGetCommand@2
-      displayName: 'NuGet restore'
-      inputs:
-        restoreSolution: 'tailspintoysweb.csproj'
+    displayName: 'NuGet restore'
+    inputs:
+      restoreSolution: 'tailspintoysweb.csproj'
 
     - task: VSBuild@1
-      displayName: 'Build solution'
-      inputs:
-        solution: 'tailspintoysweb.csproj'
-        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
-        platform: 'any cpu'
-        configuration: 'release'
+    displayName: 'Build solution'
+    inputs:
+      solution: 'tailspintoysweb.csproj'
+      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+      platform: 'any cpu'
+      configuration: 'release'
 
     - task: PublishSymbols@2
-      displayName: 'Publish symbols path'
-      inputs:
-        SearchPattern: '**\bin\**\*.pdb'
-        PublishSymbols: false
-      continueOnError: true
+    displayName: 'Publish symbols path'
+    inputs:
+      SearchPattern: '**\bin\**\*.pdb'
+      PublishSymbols: false
+    continueOnError: true
 
     - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
-        ArtifactName: 'TailspinToys-CI'
-      condition: succeededOrFailed()
+    displayName: 'Publish Artifact'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+      ArtifactName: 'TailspinToys-CI'
+    condition: succeededOrFailed()
     ```
 
 12. Choose the **Save and run** button to save our new pipeline and also kick off the first build.
@@ -542,7 +566,7 @@ In this exercise, you will create a release pipeline in Azure DevOps that perfor
 
     ![On the Add an artifact screen, TailspinToys is highlighted in the Source (build pipeline) field, and the Add button is highlighted at the bottom.](./assets/lab-images/stepbystep/media/image88.png "Add an artifact")
 
-7.  Now, it is time to begin configuring specific tasks to perform our deployment during the dev stage. To navigate to the task editor, select the **Task** menu item.
+7.  Now, it is time to begin configuring specific tasks to perform our deployment during the dev stage. To navigate to the task editor, select the **Task** menu item and then select the **dev** stage.
 
     ![In the menu, the Tasks item is highlighted.](./assets/lab-images/stepbystep/media/image89.png "New release pipeline")
 
@@ -620,7 +644,7 @@ In this exercise, you will create a release pipeline in Azure DevOps that perfor
 
     ![On the panel, Resource group and Slot are highlighted.](./assets/lab-images/stepbystep/media/image98.png "Task configuration panel")
 
-8.  Now, select the "Swap Slots" task to bring up the task configuration panel. First, locate the **Display name** field and simplify it to **Swap Slots**. Then, locate the **App Service name** and select the app service that starts with **tailspintoys-test-**. Next, locate the **Resource group** field and change the value to the resource group you created earlier. Finally, locate the **Source Slot** field and set it to **staging**.
+8.  Now, select the "Swap Slots" task to bring up the task configuration panel. Locate the **App Service name** and select the app service that starts with **tailspintoys-test-**. Next, locate the **Resource group** field and change the value to the resource group you created earlier. Finally, locate the **Source Slot** field and set it to **staging**.
 
     ![On the panel, Display name, App Service name, Resource group, and Source Slot are highlighted.](./assets/lab-images/stepbystep/media/image99.png "Configure the Swap Slots task")
 
@@ -654,7 +678,7 @@ Any commit of new or modified code to the master branch will automatically trigg
 
 ### Task 1: Manually queue a new build and follow it through the release pipeline
 
-1.  Select the "Pipelines" menu item from the left-hand navigation. Then, choose the "Queue" button.
+1.  Select the "Pipelines" menu item from the left-hand navigation. Then, choose the "Queue" button. (NOTE: your screens might look a little different if you have the preview features for Azure DevOps turned on.)
 
     ![On the screen, the Pipelines button and the Queue button are highlighted.](./assets/lab-images/stepbystep/media/image102.png "Queue a new build")
 
