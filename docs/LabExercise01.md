@@ -2,7 +2,7 @@
 
 **Contents**
 - [Setup](LabSetup)
-- [Exercise 1](LabExercise01)
+- [**Exercise 1**](LabExercise01)
 - [Exercise 2](LabExercise02)
 - [Exercise 3](LabExercise03)
 - [Exercise 4](LabExercise04)
@@ -178,3 +178,5 @@ Now that the template file has been uploaded, we'll deploy it several times to c
     >**Note**: The specific names of the resources will be slightly different than what you see in the screenshot based on the unique identities assigned.
 
     ![The Azure Portal is showing all the deployed resources for the resource group we have been using.](./assets/lab-images/stepbystep/media/image51.png "Azure Cloud Shell")
+
+[Last](LabSetup) | [Home](lab) | [Next](LabExercise02)

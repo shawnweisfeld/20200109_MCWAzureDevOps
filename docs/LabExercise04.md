@@ -5,7 +5,7 @@
 - [Exercise 1](LabExercise01)
 - [Exercise 2](LabExercise02)
 - [Exercise 3](LabExercise03)
-- [Exercise 4](LabExercise04)
+- [**Exercise 4**](LabExercise04)
 - [Exercise 5](LabExercise05)
 - [Exercise 6](LabExercise06)
 - [Cleanup](LabCleanup)
@@ -145,3 +145,5 @@ In this exercise, you will create a release pipeline in Azure DevOps that perfor
 15. Select Save, and confirm your changes by clicking "OK". Then, close the panel.
 
 Congratulations! You have completed the creation of a release pipeline with three stages.
+
+[Last](LabExercise03) | [Home](lab) | [Next](LabExercise05)

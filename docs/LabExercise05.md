@@ -6,7 +6,7 @@
 - [Exercise 2](LabExercise02)
 - [Exercise 3](LabExercise03)
 - [Exercise 4](LabExercise04)
-- [Exercise 5](LabExercise05)
+- [**Exercise 5**](LabExercise05)
 - [Exercise 6](LabExercise06)
 - [Cleanup](LabCleanup)
 
@@ -39,3 +39,5 @@ Any commit of new or modified code to the master branch will automatically trigg
 5.  Because we configured continuous deployment, the deployment to the dev stage will then be triggered immediately. It will continue through on to the test and production stages. A successful release through all three stages will look like the screen shot below.
 
     ![On the screen, a successful release through all three stages of deployment.](./assets/lab-images/stepbystep/media/image105.png "A successful release through all three stages")
+
+[Last](LabExercise04) | [Home](lab) | [Next](LabExercise06)

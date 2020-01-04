@@ -3,7 +3,7 @@
 **Contents**
 - [Setup](LabSetup)
 - [Exercise 1](LabExercise01)
-- [Exercise 2](LabExercise02)
+- [**Exercise 2**](LabExercise02)
 - [Exercise 3](LabExercise03)
 - [Exercise 4](LabExercise04)
 - [Exercise 5](LabExercise05)
@@ -92,3 +92,5 @@ In this Task, you will configure the Azure DevOps Git repository. You will confi
     ```
 
 7.  Leave that command prompt window open and switch back to the web browser window for Azure DevOps from the previous Task. Navigate to the Repos > Files page which shows the files in the repository. You may need to refresh the page to see the updated files. Your source code is now appearing in Azure DevOps.
+
+[Last](LabExercise01) | [Home](lab) | [Next](LabExercise03)

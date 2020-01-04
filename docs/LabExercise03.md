@@ -4,7 +4,7 @@
 - [Setup](LabSetup)
 - [Exercise 1](LabExercise01)
 - [Exercise 2](LabExercise02)
-- [Exercise 3](LabExercise03)
+- [**Exercise 3**](LabExercise03)
 - [Exercise 4](LabExercise04)
 - [Exercise 5](LabExercise05)
 - [Exercise 6](LabExercise06)
@@ -196,3 +196,5 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
   ![A screen that shows a successfully completed build pipeline.](./assets/lab-images/stepbystep/media/image77.png "Success") 
     
   Congratulations! You have just created your first build pipeline. In the next exercise, we will create a release pipeline that deploys your successful builds.
+
+[Last](LabExercise02) | [Home](lab) | [Next](LabExercise04)

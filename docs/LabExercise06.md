@@ -7,7 +7,7 @@
 - [Exercise 3](LabExercise03)
 - [Exercise 4](LabExercise04)
 - [Exercise 5](LabExercise05)
-- [Exercise 6](LabExercise06)
+- [**Exercise 6**](LabExercise06)
 - [Cleanup](LabCleanup)
 
 [Last](LabExercise05) | [Home](lab) | [Next](LabCleanup)
@@ -111,3 +111,5 @@ Typically, the next few steps would be performed by another team member. This wo
 8.  Because we configured continuous integration and continuous deployment, an automated build will be triggered and deployment to dev stage will then begin immediately after a successful build. It will continue through on to the test and production stages.
 
     ![On the screen, a new build has been automatically triggered.](./assets/lab-images/stepbystep/media/image117.png "List of builds")
+
+[Last](LabExercise05) | [Home](lab) | [Next](LabCleanup)

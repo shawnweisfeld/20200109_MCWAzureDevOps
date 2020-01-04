@@ -1,7 +1,7 @@
 # Hands-on lab - Setup
 
 **Contents**
-- [Setup](LabSetup)
+- [**Setup**](LabSetup)
 - [Exercise 1](LabExercise01)
 - [Exercise 2](LabExercise02)
 - [Exercise 3](LabExercise03)
@@ -61,3 +61,5 @@
     ```
     code .
     ```
+
+[Home](lab) | [Next](LabExercise01)
