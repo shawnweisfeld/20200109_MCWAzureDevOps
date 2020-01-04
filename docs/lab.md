@@ -10,7 +10,7 @@
 - [Exercise 6](LabExercise06)
 - [Cleanup](LabCleanup)
 
-[Home](Lab) | [Next](LabSetup)
+[Workshop Home](./) |[Lab Home](Lab) | [Next](LabSetup)
 
 ## Abstract and learning objectives 
 
