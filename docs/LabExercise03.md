@@ -1,4 +1,4 @@
-# Hands-on lab
+# Hands-on lab - Exercise 3
 
 **Contents**
 - [Setup](LabSetup)
@@ -10,7 +10,7 @@
 - [Exercise 6](LabExercise06)
 - [Cleanup](LabCleanup)
 
-[Home](Lab) | [Next](LabSetup)
+[Last](LabExercise02) | [Home](Lab) | [Next](LabExercise04)
 
 ## Abstract and learning objectives 
 
