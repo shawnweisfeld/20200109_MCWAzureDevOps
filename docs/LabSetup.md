@@ -16,7 +16,7 @@
 
 ### Task 1: Use Azure Shell as your development environment
 
-1.  Go to the **Azure Portal** [https://portal.azure.com](https://portal.azure.com) and log into the provided Microsoft Azure subscription
+1.  Go to the **Azure Portal** [https://portal.azure.com](https://portal.azure.com) and log into the provided Microsoft Azure subscription. **Make sure you are using the correct subscription**
 
 1.  Launch the **Azure Cloud Shell** on a new tab in the same browser window by going to [https://shell.azure.com](https://shell.azure.com). 
 

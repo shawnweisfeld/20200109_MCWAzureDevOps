@@ -83,7 +83,7 @@ Steps are a linear sequence of operations that make up a job. Each step runs in 
 
 Tasks are the building blocks of a pipeline. They describe the actions that are performed in sequence during an execution of the pipeline.
 
-10. Select and replace the entire "task" section with the following code:
+1.  Add this to the bottom of the YAML file to the "task" section:
     
     >**Note**: The YAML below creates individual tasks for performing all the necessary steps to build and test our application along with publishing the artifacts inside Azure DevOps so they can be retrieved during the upcoming release pipeline process.
 
@@ -120,7 +120,7 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
       condition: succeededOrFailed()
     ```
 
-11. The final result will look like the following:
+2.  The final result will look like the following:
 
     ```yml
     # ASP.NET Core
@@ -179,19 +179,19 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
     condition: succeededOrFailed()
     ```
 
-12. Choose the **Save and run** button to save our new pipeline and also kick off the first build.
+3.  Choose the **Save and run** button to save our new pipeline and also kick off the first build.
 
     ![A screen that shows the contents of azure-pipelines.yml. The Save and run button is highlighted.](./assets/lab-images/stepbystep/media/image73.png "azure-pipelines.yml")    
 
-13. The new azure-pipelines.yml file will automatically be added to the root of your TailspinToys repository. This is done through a git commit that Azure DevOps facilitates. You are then asked to enter a commit description. By default, it will be populated for you. Once again, select the **Save and run** button at the bottom of the screen.
+4.  The new azure-pipelines.yml file will automatically be added to the root of your TailspinToys repository. This is done through a git commit that Azure DevOps facilitates. You are then asked to enter a commit description. By default, it will be populated for you. Once again, select the **Save and run** button at the bottom of the screen.
 
     ![A screen that shows the commit of azure-pipelines.yml. The Save and run button is highlighted.](./assets/lab-images/stepbystep/media/image74.png "Save and run")   
 
-14. The build process will immediately begin and run through the steps defined in the azure-pipelines.yml file. Your Azure DevOps screen will refresh to show you the build process executing, in real-time. 
+5.  The build process will immediately begin and run through the steps defined in the azure-pipelines.yml file. Your Azure DevOps screen will refresh to show you the build process executing, in real-time. 
 
     ![A screen that shows the real-time output of the build process.](./assets/lab-images/stepbystep/media/image76.png "Real-time output")   
 
-15.  After the build process completes, you should see a green check mark next to each of the build pipeline steps.
+6.   After the build process completes, you should see a green check mark next to each of the build pipeline steps.
   
   ![A screen that shows a successfully completed build pipeline.](./assets/lab-images/stepbystep/media/image77.png "Success") 
     

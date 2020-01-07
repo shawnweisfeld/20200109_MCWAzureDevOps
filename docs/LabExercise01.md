@@ -125,9 +125,7 @@ Now that the template file has been uploaded, we'll deploy it several times to c
     
 6.  For this first run, select the "dev" environment by entering **1** and then pressing **Enter**. 
 
-7.  Next, we're asked to supply an administrator login (username) for the PostgreSQL server and database. This will be the username credential you would need to enter to connect to your newly created database.
-
-8.  Enter a value for the "administratorLogin" (i.e. use your alias) and then press **Enter**.
+7.  Next, we're asked to supply an administrator login (username) for the PostgreSQL server and database. This will be the username credential you would need to enter to connect to your newly created database. Enter a value for the "administratorLogin" (i.e. use your alias) and then press **Enter**.
 
 9.  Next, we're asked to supply an administrator password for the PostgreSQL server and database. This will be the password credential you would need to enter to connect to your newly created database. Enter a value for the "administratorLoginPassword" and then press **Enter**.
 
