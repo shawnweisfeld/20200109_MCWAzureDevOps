@@ -143,40 +143,40 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
 
     steps:
     - task: NuGetToolInstaller@0
-    displayName: 'Use NuGet 4.4.1'
-    inputs:
-      versionSpec: 4.4.1
+      displayName: 'Use NuGet 4.4.1'
+      inputs:
+        versionSpec: 4.4.1
 
     - task: UseNode@1
-    inputs:
-      checkLatest: true
+      inputs:
+        checkLatest: true
 
     - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: 'tailspintoysweb.csproj'
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: 'tailspintoysweb.csproj'
 
     - task: VSBuild@1
-    displayName: 'Build solution'
-    inputs:
-      solution: 'tailspintoysweb.csproj'
-      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
-      platform: 'any cpu'
-      configuration: 'release'
+      displayName: 'Build solution'
+      inputs:
+        solution: 'tailspintoysweb.csproj'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+        platform: 'any cpu'
+        configuration: 'release'
 
     - task: PublishSymbols@2
-    displayName: 'Publish symbols path'
-    inputs:
-      SearchPattern: '**\bin\**\*.pdb'
-      PublishSymbols: false
-    continueOnError: true
+      displayName: 'Publish symbols path'
+      inputs:
+        SearchPattern: '**\bin\**\*.pdb'
+        PublishSymbols: false
+      continueOnError: true
 
     - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact'
-    inputs:
-      PathtoPublish: '$(build.artifactstagingdirectory)'
-      ArtifactName: 'TailspinToys-CI'
-    condition: succeededOrFailed()
+      displayName: 'Publish Artifact'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: 'TailspinToys-CI'
+      condition: succeededOrFailed()
     ```
 
 3.  Choose the **Save and run** button to save our new pipeline and also kick off the first build.
