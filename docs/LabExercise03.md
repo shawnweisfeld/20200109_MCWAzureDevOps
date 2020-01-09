@@ -139,7 +139,7 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
     - vstest
 
     variables:
-    buildConfiguration: 'Release'
+      buildConfiguration: 'Release'
 
     steps:
     - task: NuGetToolInstaller@0
