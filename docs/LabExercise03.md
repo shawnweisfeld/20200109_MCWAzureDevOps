@@ -95,12 +95,12 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
       inputs:
-        restoreSolution: 'tailspintoysweb.csproj'
+        restoreSolution: '**\tailspintoysweb.csproj'
 
     - task: VSBuild@1
       displayName: 'Build solution'
       inputs:
-        solution: 'tailspintoysweb.csproj'
+        solution: '**\tailspintoysweb.csproj'
         msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
         platform: 'any cpu'
         configuration: 'release'
@@ -154,12 +154,12 @@ Tasks are the building blocks of a pipeline. They describe the actions that are 
     - task: NuGetCommand@2
     displayName: 'NuGet restore'
     inputs:
-      restoreSolution: 'tailspintoysweb.csproj'
+      restoreSolution: '**\tailspintoysweb.csproj'
 
     - task: VSBuild@1
     displayName: 'Build solution'
     inputs:
-      solution: 'tailspintoysweb.csproj'
+      solution: '**\tailspintoysweb.csproj'
       msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
       platform: 'any cpu'
       configuration: 'release'
