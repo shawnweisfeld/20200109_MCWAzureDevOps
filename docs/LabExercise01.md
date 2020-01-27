@@ -16,7 +16,7 @@
 
 Duration: 45 Minutes
 
-Tailspin Toys has requested three Azure environments (dev, test, production), each consisting of the following resources:
+Tailspin Toys Inc. has requested three Azure environments (dev, test, production), each consisting of the following resources:
 
 -   App Service
 
